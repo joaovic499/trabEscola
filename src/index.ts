@@ -1,12 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express"
 import 'dotenv/config'
+import authRoutes from "./routes/authRoutes";
 var cors = require('cors')
 
 const prisma = new PrismaClient()
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.use('/auth', authRoutes)
 
 
 async function main() {

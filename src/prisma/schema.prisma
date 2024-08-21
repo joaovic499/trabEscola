@@ -1,23 +1,45 @@
 datasource db {
-    provider = "mongodb"
-    url      = env("DATABASE_URL")
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
-
 model User {
-    id          String   @id @default(auto()) @map("_id") @db.ObjectId
-    email       String   @unique
-    name        String?
-    password    String
-    role        String
-    createAt    DateTime
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  email    String     @unique
+  name     String
+  password String
+  role     Role
+  createAt DateTime   @default(now())
+  Consulta Consulta[]
+}
+
+model Consulta {
+  idConsulta String       @id @default(auto()) @map("_id") @db.ObjectId
+  paciente   User         @relation(fields: [pacienteId], references: [id])
+  medico     Doutor       @relation(fields: [medicoId], references: [id])
+  medicoId   String       @db.ObjectId
+  pacienteId String       @db.ObjectId
+  tipo       TipoConsulta
+  horario    String
+  dia        DateTime     @default(now())
 }
 
 enum Role {
-    USER 
-    ADMIN
+  USER
+  ADMIN
+}
+
+enum TipoConsulta {
+  EXAME_SANGUE
+  EXAME_VISTA
+}
+
+model Doutor {
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  Consulta Consulta[]
 }
