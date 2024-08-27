@@ -25,7 +25,7 @@ model Consulta {
   pacienteId String       @db.ObjectId
   tipo       TipoConsulta
   horario    String
-  dia        DateTime     @default(now())
+  dia        DateTime     
 }
 
 enum Role {

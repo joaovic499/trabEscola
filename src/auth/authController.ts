@@ -14,11 +14,11 @@ export const register = async (req: Request, res: Response) => {
         if(!role) {
             const hashedPassword = await bcrypt.hash(password, 10)
             const newUser = await prisma.user.create({
-            data: {
-                email,
-                name,
-                password: hashedPassword,
-                role: Role.USER
+                data: {
+                    email,
+                    name,
+                    password: hashedPassword,
+                    role: Role.USER
                 }
             });
 
@@ -48,6 +48,7 @@ export const register = async (req: Request, res: Response) => {
 }
 
 export const login = async(req: Request, res: Response) => {
+
     const {email, password} = req.body;
 
     try {
@@ -72,14 +73,14 @@ export const login = async(req: Request, res: Response) => {
             return res.status(403).json({message: "Senha incorreta"})
         }
 
-        const token = jwt.sign({id: logar.id, role: logar.role}, secretKey, {expiresIn: '1h'});
+        const token = jwt.sign({id: logar.id, name: logar.name, role: logar.role}, secretKey, {expiresIn: '1h'});
 
         if(token) {
 
             res.json({message: 'Login feito com sucesso', token, logar});
 
         } else {
-            
+
             res.status(401).json({message: 'Credencias inválidas!'})
         }
 
