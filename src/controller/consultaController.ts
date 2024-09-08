@@ -2,12 +2,12 @@ import { PrismaClient, TipoConsulta } from "@prisma/client";
 import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
-const dia = new Date();
 
 
 export const criarConsulta = async (req: Request, res: Response) => {
 
-    const {tipo, horario, medicoId, pacienteId} = req.body
+    const {tipo, horario, medicoId, pacienteId, dia} = req.body
+    const diaDate = new Date(dia);
 
     try {
     
@@ -25,7 +25,7 @@ export const criarConsulta = async (req: Request, res: Response) => {
                 medicoId,
                 tipo: tipo as TipoConsulta,
                 horario,
-                dia
+                dia: diaDate
             }
         });
 
