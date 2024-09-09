@@ -1,0 +1,3 @@
+DATABASE_URL=mongodb+srv://joaovictorsilva60:NIi7l1GgMPOuk1nt@cluster0.jiu9hdo.mongodb.net/prisma-facul?retryWrites=true&w=majority&appName=Cluster0
+
+SECRET_KEY=sikajdiaosaieriywq9092839872io@@@@984329cxnmzbvnb
